@@ -391,7 +391,6 @@ def main():
                 time.sleep(2)
 
     finally:
-        input("\nPress ENTER to close Chrome...")
         driver.quit()
 
     df = pd.DataFrame(all_products)
