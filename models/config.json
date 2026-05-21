@@ -1,0 +1,7 @@
+{
+    "max_len": 35,
+    "embed_dim": 64,
+    "hidden_dim": 64,
+    "num_features": 6,
+    "vocab_size": 815
+}
