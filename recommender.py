@@ -106,13 +106,13 @@ def query_relevance_score(user_query, product_name, category):
     query_words = set(query.split())
     product_words = set(product_text.split())
 
-    # 1. Direct word overlap
+    # 1. Direct word overlap (mot par mot)
     if len(query_words) == 0:
         overlap_score = 0
     else:
         overlap_score = len(query_words.intersection(product_words)) / len(query_words)
 
-    # 2. Substring matching
+    # 2. Substring matching : chaque mot du query dans le texte produit
     substring_score = 0
     if len(query_words) > 0:
         matches = sum(1 for word in query_words if word in product_text)
@@ -128,10 +128,10 @@ def query_relevance_score(user_query, product_name, category):
                 group_score = 1
                 break
 
+    # Final relevance score
     relevance = (0.40 * overlap_score) + (0.40 * substring_score) + (0.20 * group_score)
 
     return min(relevance, 1)
-
 
 # =========================
 # GRU MODEL
@@ -271,10 +271,10 @@ def recommend_products(
         )
 
         final_score = (
-            0.20 * model_score
-            + 0.60 * relevance_score
-            + 0.20 * discount_score
-        )
+      0.55 * model_score
+     + 0.25 * relevance_score
+     + 0.20 * discount_score
+      )
 
         product_dict = product.to_dict()
         product_dict["model_score"] = round(model_score, 4)
